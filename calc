@@ -1,0 +1,247 @@
+<html>
+    <html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        
+        html
+        {
+            background-color: #DDFC74; 
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .calculator
+        {
+            height: 300px; 
+            width: 365px; 
+            border-radius: 16px; 
+            background-color: #000000; 
+            margin-left: auto; 
+            margin-right: auto; 
+            margin-top: 12%; 
+            margin-bottom: 12%;
+            transition: 0.3s;
+        }
+        .calculator:hover{
+            box-shadow: rgba(0, 0, 0, 0.514) 10px 10px 1px;
+        }
+        .buttons
+        {
+            margin-right: auto;
+            margin-left: auto;
+        }
+        .inputbox
+        {
+            width: 275px; 
+            height: 30px; 
+            margin: 10px; 
+            border-radius: 10px; 
+            background-color: #E9EBF8; 
+            border: none; 
+            font-size: x-large; 
+            padding: 15px; 
+            text-align: right;
+            transition: 0.3s;
+        }
+        .clearbutton
+        {
+            margin-top: -56px; 
+            float: right; 
+            margin-right: 20px; 
+            height: 30px;
+        }
+        .operatorbutton
+        {
+            border: none;
+            border-radius: 10px;
+            height: 50px;
+            width: 50px;
+            background-color: #FCA311;
+            font-size: large;
+            color: black;
+        }
+        .operatorbutton:hover
+        {
+            background-color: #d3860b;
+        }
+        .operatorbutton:active
+        {
+            background-color: #855304;
+        }
+        button
+        {
+            border: none;
+            border-radius: 10px;
+            height: 50px;
+            width: 50px;
+            background-color: #5B6C5D;
+            font-size: large;
+            color: white;
+        }
+        button:hover{
+            background-color: #4a4d4b;
+        }
+        button:active
+        {
+            background-color: #333333;
+        }
+        .equalButton
+        {
+            border: none;
+            border-radius: 10px;
+            height: 50px;
+            width: 50px;
+            background-color: skyblue;
+            font-size: large;
+            color: black;
+        }
+        .equalButton:hover
+        {
+            background-color: #48cae4;
+        }
+        .equalButton:active
+        {
+            background-color: #3aa;
+
+        }
+    </style>
+      <script>
+        function setValue(val, isOperator)
+        {
+
+            var inputBoxVal = document.getElementById("txtInputBox").value;
+            if(inputBoxVal  != '')
+            {
+                document.getElementById("txtInputBox").value = inputBoxVal + val;
+            }
+            else
+            {
+                document.getElementById("txtInputBox").value = val;
+            }
+            if(operator != undefined && isOperator != '0')
+            {
+                document.getElementById("num2").value += val;
+                
+            }
+            
+        }
+
+        var operator;
+
+        function setHiddenValue(val)
+        {
+            val;
+            document.getElementById("num1").value = document.getElementById("txtInputBox").value;
+        }
+        function calc()
+        {
+            if(document.getElementById("txtInputBox").value == '')
+            {
+                return;
+            }
+            num1 = Number(document.getElementById("num1").value);
+            num2 = Number(document.getElementById("num2").value);
+            var res;
+            switch(operator)
+            {
+                case '+':
+                    res = num1 + num2;
+                break;
+
+                case '-':
+                    res = num1 - num2;
+                break;
+                case '*':
+                    res = num1 * num2;
+                break;
+                case '/':
+                    res = num1 / num2;
+                break;
+
+            }
+            document.getElementById("txtInputBox").value = res;
+            document.getElementById("num1").value = res;
+            document.getElementById("num2").value = 0;
+            
+
+            
+        }
+
+        function clearValue()
+        {
+            document.getElementById("txtInputBox").value = ""; 
+            if(operator = undefined)
+            {
+                document.getElementById("num2").value = 0;
+                document.getElementById("num1").value = 0;
+            }
+            else
+            {
+                document.getElementById("num2").value = 0;
+                
+            }
+
+        }
+        function validateval(){
+            if(isNaN(Number(document.getElementById("num1").value)))
+            {
+                alert("Please enter a numeric value or not more than 2 values");
+                document.getElementById("txtInputBox").value = "";
+                if(operator = undefined)
+                {
+                    document.getElementById("num2").value = 0;
+                    document.getElementById("num1").value = 0;
+                }
+                else
+                {
+                    document.getElementById("num2").value = 0;
+                
+                }
+                
+                return;
+            }
+            
+            
+        }
+
+
+    </script>
+    </head>
+    <body>
+<div class="calculator">
+    <table class="buttons">
+        <input type="text" id="txtInputBox" class="inputbox"><br><br></input>
+        <button class="clearbutton" onclick="clearValue();">C</button>
+        <tr>
+            <td><button type="button" id="btnOne" style="padding: 20px;" onClick=setValue(this.value); value="1">1</button></td>
+            <td><button type="button" id="btnTwo" style="padding: 20px;" onClick=setValue(this.value); value="2">2</button></td>
+            <td><button type="button" id="btnThree" style="padding: 20px;" onClick=setValue(this.value); value="3">3</button></td>
+            <td><button type="button" id="btndiv" style="padding: 20px;" class="operatorbutton" onclick="setHiddenValue(this.innerHTML);setValue(this.innerHTML, '0'); operator= '/'; validateval();">/</button></td>
+        </tr>
+        <tr>
+            <td><button type="button" id="btnFour" style="padding: 20px;" onClick=setValue(this.value); value="4">4</button></td>
+            <td><button type="button" id="btnFive" style="padding: 20px;" onClick=setValue(this.value); value="5">5</button></td>
+            <td><button type="button" id="btnSix" style="padding: 20px;" onClick=setValue(this.value); value="6">6</button></td>
+            <td><button type="button" id="btnmul" style="padding: 20px;" class="operatorbutton" onclick="setHiddenValue(this.innerHTML);setValue(this.innerHTML, '0'); operator= '*'; validateval();">*</button></td>
+        </tr>
+        <tr>
+            <td><button type="button" id="btnSeven" style="padding: 20px;" onClick=setValue(this.value); value="7">7</button></td>
+            <td><button type="button" id="btnEight" style="padding: 20px;" onClick=setValue(this.value); value="8">8</button></td>
+            <td><button type="button" id="btnNine" style="padding: 20px;" onClick=setValue(this.value); value="9">9</button></td>
+            <td><button type="button" id="btnplus" style="padding: 20px;" class="operatorbutton" onclick="setHiddenValue(this.innerHTML);setValue(this.innerHTML, '0'); operator= '+'; validateval();">+</button></td>
+        </tr>
+        <tr>
+            <td><button type="button" id="btnZero" style="padding: 20px;" onClick=setValue(this.value); value="0">0</button></td>
+            <td><button type="button" id="btndec" style="padding: 20px;" onClick=setValue(this.value); value=".">.</button></td>
+            <td><button type="button" id="btnequal" style="padding: 20px;" class="equalButton" onclick="calc(); validateval();">=</button></td>
+            <td><button type="button" id="btnminus" style="padding: 20px;" class="operatorbutton" onclick="setHiddenValue(this.innerHTML); onClick=setValue(this.innerHTML, '0'); operator= '-'; validateval();">-</button></td>
+        </tr>
+    </table>
+    <input type="hidden" id="num1"></input>
+    <input type="hidden" id="num2"></input>
+</div>
+
+</body>
+
+</html>
